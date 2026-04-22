@@ -1,0 +1,28 @@
+# 漫画素材（著作権物）
+Input/Image/
+Input/_ocr/
+アーカイブ/
+
+# 参考チャンネル画像（スクショ）
+参考チャンネル1/Image/
+参考チャンネル2/image/
+
+# 生成物
+Output/
+
+# mokuro副産物
+*.html
+*.mokuro
+
+# Claude ローカル設定
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
