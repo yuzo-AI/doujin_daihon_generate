@@ -4,11 +4,18 @@ YouTubeショート用「寸止め台本」の自動生成プロジェクト。
 
 ## ディレクトリ構成
 - `要件定義.txt` — 台本生成のルール・フロー・Few-Shot例（システムプロンプト本体）
-- `Input/Image/` — 今回処理する漫画画像
-- `Input/synopsis.txt` — あらすじテキスト
-- `Input/_ocr/ocr_text.txt` — OCR抽出済みテキスト（mokuro出力。あれば優先使用）
+- `Input/Image/` — 今回処理する漫画画像（新しい漫画に差し替えて使う）
+- `Input/シナリオ.txt` — あらすじテキスト（新しい漫画に差し替えて使う）
 - `Output/YYYYMMDD/` — 生成された台本の保存先
+- `Output/YYYYMMDD/ocr_text.txt` — OCR抽出済みテキスト（mokuro実行後に手動でここに置く）
 - `参考チャンネル1〜3/` — 学習用リファレンス（編集禁止）
+
+## 新しい漫画を処理する場合
+1. `Input/Image/` の画像を新しい漫画のPNGに差し替える
+2. `Input/シナリオ.txt` を新しいあらすじに書き換える
+3. mokuroを実行してOCRテキストを生成: `mokuro --as_one_file=False --disable_confirmation Input/Image`
+4. 生成された `Input/Image/_ocr/ocr_text.txt` を `Output/{YYYYMMDD}/ocr_text.txt` にコピーする
+5. `Run` を入力して台本生成
 
 ## 「Run」コマンド（重要）
 
@@ -18,8 +25,8 @@ YouTubeショート用「寸止め台本」の自動生成プロジェクト。
 
 1. **要件定義の読込**: `要件定義.txt` を読み、Step1〜Step4のフローを頭に入れる。
 2. **素材の読込**（可能な限り並列で `Read` すること）:
-   - `Input/synopsis.txt` を読む
-   - `Input/_ocr/ocr_text.txt` が存在すれば読む（各ページのセリフ・地の文の正確な内容。ストーリー時系列把握に優先使用）
+   - `Input/シナリオ.txt` を読む
+   - `Output/{今日の日付YYYYMMDD}/ocr_text.txt` が存在すれば読む（各ページのセリフ・地の文の正確な内容。ストーリー時系列把握に優先使用）
    - `Input/Image/` 配下の全画像を読む（コマ構成・表情・ページレイアウトの視覚確認用）
    - ※ OCRテキストがある場合はセリフ内容はそちらを優先し、画像はコマ位置・構図・感情の確認に使う
 3. **Step1 ジャンル判定**: A(日常ラブコメ)／B(わからせ)／C(能力者ツイスト)／D(NTR)／E(ハーレム) のいずれかに分類。
